@@ -7,27 +7,27 @@ Welcome to Spotipython! We appreciate your interest in contributing. By particip
 1. Fork the repository to your GitHub account.
 2. Clone the forked repository to your local machine.
 
-    ```bash
+    ```cmd
     git clone https://github.com/your-username/Spotipython.git
     cd Spotipython
     ```
 
 3. Create a new branch for your feature or bug fix.
 
-    ```bash
+    ```cmd
     git checkout -b feature-name
     ```
 
 4. Make your changes and commit them with a descriptive commit message.
 
-    ```bash
+    ```cmd
     git add .
     git commit -m "Your detailed commit message"
     ```
 
 5. Push your changes to your GitHub repository.
 
-    ```bash
+    ```cmd
     git push origin feature-name
     ```
 
