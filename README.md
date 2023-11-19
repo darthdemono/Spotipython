@@ -100,3 +100,9 @@ Follow this guide from Spotify Developers:
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+
+## Contribution
+Contributions are welcome! Please check the [Contribution Guidelines](CONTRIBUTING.md) before contributing.
+
+## Code of Conduct
+Please review our [Code of Conduct](CODE_OF_CONDUCT.md) before participating in the project.
