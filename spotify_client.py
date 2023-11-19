@@ -1,5 +1,7 @@
 import base64
 import datetime
+import logging
+import time
 from urllib.parse import urlencode
 import requests
 
@@ -7,9 +9,6 @@ class SpotifyAPI:
     TOKEN_URL = "https://accounts.spotify.com/api/token"
 
     def __init__(self, client_id, client_secret):
-        """
-        Initialize the SpotifyAPI object with client_id and client_secret.
-        """
         self.client_id = client_id
         self.client_secret = client_secret
         self.access_token = None
@@ -17,9 +16,6 @@ class SpotifyAPI:
         self.access_token_did_expire = True
 
     def get_client_credentials(self):
-        """
-        Get the client credentials encoded in base64.
-        """
         if not all([self.client_id, self.client_secret]):
             raise ValueError("You must set client_id and client_secret")
         client_creds = f"{self.client_id}:{self.client_secret}"
@@ -27,27 +23,18 @@ class SpotifyAPI:
         return client_creds_b64
 
     def get_token_headers(self):
-        """
-        Get the headers for requesting access token.
-        """
         return {"Authorization": f"Basic {self.get_client_credentials()}"}
 
     def get_token_data(self):
-        """
-        Get the data for requesting access token.
-        """
         return {"grant_type": "client_credentials"}
 
     def perform_auth(self):
-        """
-        Perform authentication to get the access token.
-        """
         token_data = self.get_token_data()
         token_headers = self.get_token_headers()
         response = requests.post(self.TOKEN_URL, data=token_data, headers=token_headers)
 
         if response.status_code not in range(200, 299):
-            raise ValueError("Could not authenticate client. Check your client credentials.")
+            raise ValueError(f"Authentication failed. Status code: {response.status_code}")
 
         data = response.json()
         access_token = data.get('access_token')
@@ -60,50 +47,52 @@ class SpotifyAPI:
         return True
 
     def get_access_token(self):
-        """
-        Get the access token, renewing it if expired.
-        """
         if self.access_token_did_expire or self.access_token is None:
             self.perform_auth()
         return self.access_token
 
     def get_resource_header(self):
-        """
-        Get the headers for requesting a resource.
-        """
         return {"Authorization": f"Bearer {self.get_access_token()}"}
 
-    def get_resource(self, resource_type, lookup_id):
-        """
-        Get a specific resource from the Spotify API.
-        """
+    def get_resource(self, resource_type, lookup_id, params=None, headers=None):
         endpoint = f"https://api.spotify.com/v1/{resource_type}/{lookup_id}"
-        headers = self.get_resource_header()
-        return self._make_request(endpoint, headers)
+        headers = headers or self.get_resource_header()
+        return self._make_request(endpoint, headers, params=params)
 
     def base_search(self, query_params):
-        """
-        Base search functionality for Spotify API.
-        """
         headers = self.get_resource_header()
         endpoint = "https://api.spotify.com/v1/search"
         lookup_url = f"{endpoint}?{query_params}&limit=40"
         return self._make_request(lookup_url, headers)
 
-    def _make_request(self, url, headers):
-        """
-        Make a request to the Spotify API and handle errors.
-        """
-        try:
-            response = requests.get(url, headers=headers)
-            response.raise_for_status()  # Raise an error for HTTP errors (4xx, 5xx)
-            return response.json()
-        except requests.exceptions.HTTPError as http_err:
-            print(f"HTTP error occurred: {http_err}")
-        except Exception as err:
-            print(f"An unexpected error occurred: {err}")
-        return {}
+    def _make_request(self, url, headers, params=None):
+        max_retries = 3
+        retries = 0
 
+        while retries < max_retries:
+            try:
+                response = requests.get(url, headers=headers, params=params)
+                response.raise_for_status()  # Raise an error for HTTP errors (4xx, 5xx)
+                return response.json()
+            except requests.exceptions.HTTPError as http_err:
+                if response.status_code == 429:  # Rate Limit Exceeded
+                    retry_after = int(response.headers.get('Retry-After', 5))  # Default to 5 seconds
+                    logging.info(f"Rate limit exceeded. Retrying after {retry_after} seconds.")
+                    time.sleep(retry_after)
+                    retries += 1
+                elif response.status_code == 400:  # Client Error (Bad Request)
+                    error_message = response.json().get('error', {}).get('message', 'Unknown Error')
+                    raise ValueError(f"HTTP error occurred: {response.status_code} Client Error: {error_message} for url: {url}")
+                else:
+                    logging.error(f"HTTP error occurred: {http_err}. Response: {response.text}")
+                    raise
+            except Exception as err:
+                logging.error(f"An unexpected error occurred: {err}")
+                raise
+
+        logging.error(f"Reached max retries. Aborting request.")
+        raise ValueError("Reached max retries.")
+    
     def search(self, query=None, operator=None, operator_query=None, search_type='artist'):
         """
         Search for tracks, albums, or artists on Spotify.
