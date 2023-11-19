@@ -12,7 +12,6 @@
   [![License](https://img.shields.io/github/license/darthdemono/Spotipython?style=for-the-badge)](LICENSE)
   [![Last Commit](https://img.shields.io/github/last-commit/darthdemono/Spotipython?style=for-the-badge)](https://github.com/darthdemono/Spotipython/commits/main)
   [![Python Version](https://img.shields.io/badge/Python-3.x-blue?style=for-the-badge)](https://www.python.org/downloads/)
-  [![Contributions Welcome](https://img.shields.io/badge/Contributions-Welcome-brightgreen?style=for-the-badge)](CONTRIBUTING.md)
 
 </div>
 
