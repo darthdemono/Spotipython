@@ -6,11 +6,14 @@
       <i>An open-source project for fetching Spotify track and album data programmatically using Python and the Spotify API.</i>
   </p>
   
-  [![Badge](https://img.shields.io/github/issues/darthdemono/Spotipython?style=for-the-badge)](https://github.com/darthdemono/Spotipython/issues)
-  [![Badge](https://img.shields.io/github/forks/darthdemono/Spotipython?style=for-the-badge)](https://github.com/darthdemono/Spotipython/network)
-  [![Badge](https://img.shields.io/github/stars/darthdemono/Spotipython?style=for-the-badge)](https://github.com/darthdemono/Spotipython/stargazers)
-  [![License](https://img.shields.io/github/license/darthdemono/Spotipython?style=for-the-badge)](https://github.com/darthdemono/Spotipython/blob/main/LICENSE)
-  [![Last Commit](https://img.shields.io/github/last-commit/darthdemono/Spotipython?style=for-the-badge)](https://github.com/darthdemono/Spotipython)
+  [![GitHub Issues](https://img.shields.io/github/issues/darthdemono/Spotipython?style=for-the-badge)](https://github.com/darthdemono/Spotipython/issues)
+  [![GitHub Forks](https://img.shields.io/github/forks/darthdemono/Spotipython?style=for-the-badge)](https://github.com/darthdemono/Spotipython/network)
+  [![GitHub Stars](https://img.shields.io/github/stars/darthdemono/Spotipython?style=for-the-badge)](https://github.com/darthdemono/Spotipython/stargazers)
+  [![License](https://img.shields.io/github/license/darthdemono/Spotipython?style=for-the-badge)](LICENSE)
+  [![Last Commit](https://img.shields.io/github/last-commit/darthdemono/Spotipython?style=for-the-badge)](https://github.com/darthdemono/Spotipython/commits/main)
+  [![Python Version](https://img.shields.io/badge/Python-3.x-blue?style=for-the-badge)](https://www.python.org/downloads/)
+  [![Contributions Welcome](https://img.shields.io/badge/Contributions-Welcome-brightgreen?style=for-the-badge)](CONTRIBUTING.md)
+
 </div>
 
 
