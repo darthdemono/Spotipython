@@ -68,13 +68,18 @@ try:
     # Extract relevant data directly from album_dict
     data = sorted(album_dict["tracks"]["items"], key=lambda x: (x["disc_number"], x["track_number"]))
     total_tracks = int(album_dict["total_tracks"])
+    album_external_ids = album_dict["external_ids"]
+
 
     # Print basic information
     print_separator_line()
     print("ALBUM DATA:")
     print(f"Total Tracks: {total_tracks}")
     print(f"Album Type: {album_dict['album_type']}")
-
+    print("External IDs:")
+    for key, value in album_external_ids.items():
+        print(f"    {key_value(key, value)}")
+        
     # Print additional information
     for key in ["name", "release_date", "label"]:
         print(f"{key.title().replace('_', ' ')}: {album_dict[key]}")
