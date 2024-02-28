@@ -69,7 +69,7 @@ try:
     data = sorted(album_dict["tracks"]["items"], key=lambda x: (x["disc_number"], x["track_number"]))
     total_tracks = int(album_dict["total_tracks"])
     album_external_ids = album_dict["external_ids"]
-
+    images = album_dict["images"][0]["url"]
 
     # Print basic information
     print_separator_line()
@@ -79,13 +79,13 @@ try:
     print("External IDs:")
     for key, value in album_external_ids.items():
         print(f"    {key_value(key, value)}")
-        
     # Print additional information
     for key in ["name", "release_date", "label"]:
         print(f"{key.title().replace('_', ' ')}: {album_dict[key]}")
     # Print the first "text" object from the copyright response
     copyright_text = album_dict.get("copyrights", [{"text": "Unknown"}])[0]["text"]
     print(f"Copyright: {copyright_text}")
+    print(f"640px image: {images}")
     # Print artist details directly from the artist endpoint
     artist_id = album_dict["artists"][0]["id"]
     artist_dict = spotify.get_resource("artists", artist_id)
