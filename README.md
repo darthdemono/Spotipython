@@ -50,11 +50,12 @@ Main.py is a Python script designed to interact with the Spotify API. It provide
 ```cmd
 python main.py
 ```
-Follow the prompts and provide the Spotify Album URL when requested.
+Follow the prompts and provide the Data when requested.
 
 ### Dotenv
 - Dotenv file contains your "client_id" and "client_secret."
-- create this file first:
+- Get the client_id and client_secret from steps below and add it to this
+- create this file:
 #### .env
 ```
 client_id = "XXXXXXXXXXXXXXXXXXXXXXXXXXX"
