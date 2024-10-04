@@ -19,6 +19,13 @@
 ## Introduction
 Spotipython is a Python project that utilizes the Spotify API to fetch detailed information about albums, artists, and tracks. Whether you have an album link or want to search for specific tracks, Spotipython provides scripts to gather the data you need programmatically.
 
+## Backstory
+The development of Spotipython was inspired by my passion for contributing to the world of music. As an active contributor to Musicbrainz, where my Musicbrainz ID is https://musicbrainz.org/user/DarthDemono, I've been actively involved in managing music tags and making data available to the world. My contributions to Musicbrainz reflect my commitment to the internet and the music community.
+
+Spotipython is a Python project developed to leverage the Spotify API for fetching detailed information about albums, artists, and tracks. The program aims to provide data such as ISRC and UPC codes, which can be obtained from Spotify, contributing to the availability of valuable music data.
+
+The decision not to include this backstory in the GitHub README was to maintain brevity and focus on the essential information about the project.
+
 ## Project Structure
 The project is organized with the following directory structure:
 
